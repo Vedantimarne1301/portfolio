@@ -1,0 +1,382 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vedanti Marne</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --cream: #fdf8f3;
+    --warm-sand: #f0e8da;
+    --terracotta: #c96a3a;
+    --terracotta-light: #f4ede5;
+    --terracotta-dark: #8f4520;
+    --bark: #4a3728;
+    --bark-light: #7a6050;
+    --muted: #9e8a7a;
+    --white: #fff;
+    --border: rgba(74,55,40,0.12);
+    --border-strong: rgba(74,55,40,0.22);
+    --shadow: 0 2px 16px rgba(74,55,40,0.09);
+    --shadow-lg: 0 8px 40px rgba(74,55,40,0.13);
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--bark); font-size: 15px; line-height: 1.7; }
+  a { color: var(--terracotta); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(253,248,243,0.93);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 56px;
+  }
+  .nav-logo { font-family: 'Lora', serif; font-size: 1.05rem; font-weight: 600; color: var(--bark); }
+  .nav-links { display: flex; gap: 1.4rem; }
+  .nav-links a { font-size: 13px; font-weight: 500; color: var(--bark-light); transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terracotta); text-decoration: none; }
+
+  .wrap { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+  section { padding: 4.5rem 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  /* HERO */
+  .hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 2.5rem; align-items: start; padding-top: 5rem; padding-bottom: 4rem; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--terracotta-light); color: var(--terracotta-dark);
+    font-size: 12px; font-weight: 500;
+    padding: 5px 12px; border-radius: 20px;
+    margin-bottom: 1.1rem;
+    border: 1px solid rgba(201,106,58,0.2);
+  }
+  .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--terracotta); display: inline-block; }
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    font-weight: 600; line-height: 1.2;
+    letter-spacing: -0.02em; color: var(--bark);
+    margin-bottom: 0.9rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--terracotta); }
+  .hero-sub { font-size: 1rem; color: var(--bark-light); max-width: 500px; margin-bottom: 1.75rem; line-height: 1.75; }
+  .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 18px; border-radius: var(--radius-sm); font-size: 13.5px; font-weight: 500; cursor: pointer; transition: all 0.2s; border: none; font-family: inherit; }
+  .btn-primary { background: var(--terracotta); color: var(--white); box-shadow: 0 2px 10px rgba(201,106,58,0.3); }
+  .btn-primary:hover { background: var(--terracotta-dark); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--bark); border: 1px solid var(--border-strong); }
+  .btn-ghost:hover { background: var(--warm-sand); transform: translateY(-1px); }
+
+  .avatar-wrap {
+    width: 200px; height: 200px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--warm-sand), var(--terracotta-light));
+    border: 3px solid var(--white); box-shadow: var(--shadow-lg);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Lora', serif; font-size: 2.5rem; color: var(--terracotta); font-weight: 600;
+    flex-shrink: 0; position: relative;
+  }
+  .avatar-ring { position: absolute; inset: -8px; border-radius: 50%; border: 2px dashed rgba(201,106,58,0.22); }
+
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; margin-top: 2.5rem; }
+  .stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.2rem; box-shadow: var(--shadow); }
+  .stat-num { font-family: 'Lora', serif; font-size: 1.8rem; font-weight: 600; color: var(--terracotta); display: block; line-height: 1; margin-bottom: 3px; }
+  .stat-label { font-size: 12px; color: var(--muted); font-weight: 500; }
+
+  /* SECTION HEADER */
+  .eyebrow { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terracotta); font-weight: 500; margin-bottom: 4px; }
+  .sec-title { font-family: 'Lora', serif; font-size: 1.65rem; font-weight: 600; color: var(--bark); margin-bottom: 6px; letter-spacing: -0.01em; }
+  .sec-lead { color: var(--bark-light); max-width: 520px; margin-bottom: 2rem; font-size: 14px; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 1rem; }
+  .skill-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.25rem; box-shadow: var(--shadow); transition: transform 0.2s, box-shadow 0.2s; }
+  .skill-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+  .skill-icon { width: 34px; height: 34px; border-radius: 9px; background: var(--terracotta-light); display: flex; align-items: center; justify-content: center; margin-bottom: 0.65rem; font-size: 15px; }
+  .skill-title { font-weight: 500; font-size: 13.5px; color: var(--bark); margin-bottom: 6px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tag { font-size: 11px; padding: 2px 7px; border-radius: 20px; background: var(--warm-sand); color: var(--bark-light); font-weight: 500; }
+  .tag-hot { background: var(--terracotta-light); color: var(--terracotta-dark); }
+
+  /* PROJECTS */
+  .projects-grid { display: flex; flex-direction: column; gap: 1.1rem; }
+  .proj-card {
+    background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 1.4rem 1.5rem; box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: grid; grid-template-columns: 1fr 52px; gap: 1rem; align-items: start;
+  }
+  .proj-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+  .proj-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+  .proj-type { font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--terracotta); font-weight: 500; }
+  .proj-date { font-size: 11px; color: var(--muted); }
+  .proj-name { font-family: 'Lora', serif; font-size: 1.1rem; font-weight: 600; color: var(--bark); margin-bottom: 5px; }
+  .proj-stack { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 8px; }
+  .proj-desc { font-size: 13px; color: var(--bark-light); line-height: 1.65; }
+  .proj-bullets { margin-top: 8px; padding-left: 0; list-style: none; }
+  .proj-bullets li { font-size: 13px; color: var(--bark-light); line-height: 1.6; padding: 2px 0 2px 14px; position: relative; }
+  .proj-bullets li::before { content: '·'; position: absolute; left: 0; color: var(--terracotta); font-weight: 700; }
+  .proj-icon { width: 48px; height: 48px; border-radius: 12px; background: var(--terracotta-light); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+
+  /* ACHIEVEMENT */
+  .achievement-box {
+    background: linear-gradient(135deg, #fff8f3, var(--terracotta-light));
+    border: 1.5px solid rgba(201,106,58,0.25);
+    border-radius: var(--radius);
+    padding: 1.25rem 1.5rem;
+    display: flex; align-items: flex-start; gap: 1rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+  }
+  .ach-icon { font-size: 2rem; flex-shrink: 0; }
+  .ach-title { font-family: 'Lora', serif; font-size: 1rem; font-weight: 600; color: var(--bark); margin-bottom: 3px; }
+  .ach-desc { font-size: 13px; color: var(--bark-light); }
+
+  /* CONTACT */
+  .contact-box {
+    background: linear-gradient(135deg, var(--warm-sand) 0%, var(--terracotta-light) 100%);
+    border: 1px solid rgba(201,106,58,0.18);
+    border-radius: 20px;
+    padding: 3rem 2rem;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+  }
+  .contact-box h2 { font-family: 'Lora', serif; font-size: 1.8rem; font-weight: 600; color: var(--bark); margin-bottom: 0.65rem; }
+  .contact-box p { color: var(--bark-light); margin-bottom: 1.75rem; max-width: 400px; margin-left: auto; margin-right: auto; font-size: 14px; }
+  .contact-links { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 17px; border-radius: var(--radius-sm);
+    font-size: 13px; font-weight: 500;
+    background: var(--white); color: var(--bark);
+    border: 1px solid var(--border-strong);
+    transition: all 0.2s; box-shadow: 0 1px 6px rgba(74,55,40,0.07);
+  }
+  .contact-link:hover { background: var(--terracotta); color: var(--white); border-color: var(--terracotta); transform: translateY(-2px); text-decoration: none; }
+
+  footer { text-align: center; padding: 1.75rem; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-grid > * { animation: fadeUp 0.55s ease both; }
+  .hero-grid > *:nth-child(2) { animation-delay: 0.08s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Vedanti Marne</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="wrap">
+  <div class="hero-grid">
+    <div>
+      <div class="hero-badge"><span></span> B.Tech · AI &amp; ML · Open to roles</div>
+      <h1>Hi, I'm Vedanti —<br>I build <em>intelligent systems</em><br>that solve real problems.</h1>
+      <p class="hero-sub">B.Tech student with hands-on experience building AI/ML and NLP-driven systems — RAG pipelines, agentic AI, mock interview platforms, and more. Passionate about intelligent automation and scalable AI for the real world.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary" onclick="document.getElementById('projects').scrollIntoView({behavior:'smooth'})">View my projects</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get in touch</button>
+      </div>
+    </div>
+    <div class="avatar-wrap">
+      <img src="C:\Users\VEDANTI\OneDrive\Documents\portfolio\vedanti image.jpeg" alt="Vedanti Marne" style="width:100%; height:100%; object-fit:cover; border-radius:50%"/>
+      <div class="avatar-ring"></div>
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><span class="stat-num">5+</span><span class="stat-label">AI/ML projects built</span></div>
+    <div class="stat-card"><span class="stat-num">🏆</span><span class="stat-label">Hackathon winner · 500+ teams</span></div>
+    <div class="stat-card"><span class="stat-num">4</span><span class="stat-label">Relevant CS specialisations</span></div>
+    <div class="stat-card"><span class="stat-num">∞</span><span class="stat-label">Curiosity for new AI tools</span></div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="wrap">
+    <div class="eyebrow">Toolkit</div>
+    <h2 class="sec-title">What I work with</h2>
+    <p class="sec-lead">A growing stack across AI, full-stack, and cloud — constantly evolving.</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🧠</div>
+        <div class="skill-title">AI &amp; GenAI</div>
+        <div class="tags">
+          <span class="tag tag-hot">LLMs</span><span class="tag tag-hot">RAG</span><span class="tag tag-hot">LangChain</span><span class="tag">LangGraph</span><span class="tag">LLaMA 3</span><span class="tag">Gemini</span><span class="tag">Whisper</span><span class="tag">gTTS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📐</div>
+        <div class="skill-title">ML &amp; NLP</div>
+        <div class="tags">
+          <span class="tag">Scikit-learn</span><span class="tag">TensorFlow</span><span class="tag">PyTorch</span><span class="tag">XGBoost</span><span class="tag">NLP</span><span class="tag">Vector Embeddings</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">💻</div>
+        <div class="skill-title">Languages</div>
+        <div class="tags">
+          <span class="tag tag-hot">Python</span><span class="tag">C++</span><span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">⚙️</div>
+        <div class="skill-title">Frameworks</div>
+        <div class="tags">
+          <span class="tag">React</span><span class="tag">FastAPI</span><span class="tag">Flask</span><span class="tag">Gradio</span><span class="tag">ChromaDB</span><span class="tag">GroqCloud</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">☁️</div>
+        <div class="skill-title">Cloud &amp; DevOps</div>
+        <div class="tags">
+          <span class="tag">AWS</span><span class="tag">Docker</span><span class="tag">GitHub Actions</span><span class="tag">CI/CD</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📚</div>
+        <div class="skill-title">Coursework</div>
+        <div class="tags">
+          <span class="tag">Artificial Intelligence</span><span class="tag">Machine Learning</span><span class="tag">NLP</span><span class="tag">Full Stack</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="wrap">
+    <div class="eyebrow">Work</div>
+    <h2 class="sec-title">Selected projects</h2>
+    <p class="sec-lead">AI systems built end-to-end — from idea to working product.</p>
+
+    <div class="achievement-box">
+      <div class="ach-icon">🏆</div>
+      <div>
+        <div class="ach-title">Best Solution — 24-Hour Hackathon (500+ teams)</div>
+        <div class="ach-desc">Won for building an AI-powered traffic safety and risk prediction system. Featured in the Traffic Safety Risk Prediction project below.</div>
+      </div>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="proj-card">
+        <div>
+          <div class="proj-meta"><span class="proj-type">Meeting Intelligence</span><span class="proj-date">Jan 2026</span></div>
+          <div class="proj-name">MinuteMind</div>
+          <div class="proj-stack">
+            <span class="tag tag-hot">LLaMA 3</span><span class="tag tag-hot">LangChain</span><span class="tag">Whisper</span><span class="tag">ChromaDB</span><span class="tag">GroqCloud</span><span class="tag">Python</span>
+          </div>
+          <ul class="proj-bullets">
+            <li>Converts spoken meetings into structured, actionable insights using ASR + LLM pipelines.</li>
+            <li>Handles domain-specific financial terminology and acronym ambiguity via prompt-driven contextual reasoning.</li>
+            <li>Automates extraction of meeting minutes, key decisions, and action items from unstructured speech.</li>
+            <li>Scalable architecture designed for future RAG-based knowledge grounding and real-time voice processing.</li>
+          </ul>
+        </div>
+        <div class="proj-icon">🎙️</div>
+      </div>
+
+      <div class="proj-card">
+        <div>
+          <div class="proj-meta"><span class="proj-type">Clinical AI · RAG</span><span class="proj-date">Nov 2025</span></div>
+          <div class="proj-name">MedContext AI</div>
+          <div class="proj-stack">
+            <span class="tag tag-hot">RAG</span><span class="tag tag-hot">LLaMA 3</span><span class="tag">LangChain</span><span class="tag">ChromaDB</span><span class="tag">Gradio</span><span class="tag">GroqCloud</span>
+          </div>
+          <ul class="proj-bullets">
+            <li>Clinical document intelligence system enabling citation-backed Q&amp;A over patient medical records.</li>
+            <li>End-to-end RAG pipeline: PDF ingestion, semantic chunking, vector embeddings, similarity retrieval.</li>
+            <li>Multi-turn conversational querying with low-latency, hallucination-resistant responses for real-world clinical workflows.</li>
+          </ul>
+        </div>
+        <div class="proj-icon">🏥</div>
+      </div>
+
+      <div class="proj-card">
+        <div>
+          <div class="proj-meta"><span class="proj-type">AI · Safety · 🏆 Hackathon Winner</span><span class="proj-date">Feb 2026</span></div>
+          <div class="proj-name">AI-Powered Traffic Safety Risk Prediction</div>
+          <div class="proj-stack">
+            <span class="tag tag-hot">LLaMA 3</span><span class="tag">XGBoost</span><span class="tag">LangChain</span><span class="tag">FastAPI</span><span class="tag">React</span><span class="tag">Python</span>
+          </div>
+          <ul class="proj-bullets">
+            <li>Interactive map-based system where users select a location to analyze road accident risk.</li>
+            <li>Generates a confidence-based risk score with key contributing accident factors.</li>
+            <li>AI-generated explanations and actionable safety recommendations for each location.</li>
+          </ul>
+        </div>
+        <div class="proj-icon">🚦</div>
+      </div>
+
+      <div class="proj-card">
+        <div>
+          <div class="proj-meta"><span class="proj-type">NLP · EdTech</span><span class="proj-date">Mar 2025</span></div>
+          <div class="proj-name">AI-Based Mock Interview System</div>
+          <div class="proj-stack">
+            <span class="tag tag-hot">Google Gemini</span><span class="tag">Python</span><span class="tag">Flask</span><span class="tag">NLP</span><span class="tag">HTML/CSS</span>
+          </div>
+          <ul class="proj-bullets">
+            <li>Generates role-specific interview questions with adaptive follow-ups using Gemini.</li>
+            <li>Evaluates responses with NLP-based reasoning — relevance, clarity, and depth.</li>
+            <li>Structured, actionable feedback highlighting strengths, weaknesses, and improvement areas.</li>
+          </ul>
+        </div>
+        <div class="proj-icon">🎤</div>
+      </div>
+
+      <div class="proj-card">
+        <div>
+          <div class="proj-meta"><span class="proj-type">Computer Vision · Security</span></div>
+          <div class="proj-name">Deepfake Image Detection</div>
+          <div class="proj-stack">
+            <span class="tag">MobileNetV2</span><span class="tag">Grad-CAM</span><span class="tag">OpenCV</span><span class="tag">Flask</span><span class="tag">PyTorch</span>
+          </div>
+          <ul class="proj-bullets">
+            <li>Detects whether a facial image is real or AI-generated using a fine-tuned MobileNetV2 classifier.</li>
+            <li>Grad-CAM heatmaps highlight suspicious facial regions (eyes, mouth, jaw) influencing the prediction.</li>
+            <li>OpenCV auto-detects and crops face regions; Flask serves it as an interactive web app.</li>
+          </ul>
+        </div>
+        <div class="proj-icon">🔍</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" style="border-bottom:none;">
+  <div class="wrap">
+    <div class="contact-box">
+      <h2>Let's build something meaningful</h2>
+      <p>Open to internships, research collaborations, and interesting AI projects. Always happy to connect.</p>
+      <div class="contact-links">
+        <a href="mailto:vedantimarne13@gmail.com" class="contact-link">✉ Email</a>
+        <a href="https://github.com/Vedantimarne1301" class="contact-link">⌨ GitHub</a>
+        <a href="https://www.linkedin.com/in/vedanti-marne/" class="contact-link">💼 LinkedIn</a>
+        <a href="https://drive.google.com/drive/folders/1ovwbVhYP4cWM8WWSKmmSyQIHH9iRkjX6" class="contact-link">📄 Resume</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>Built with care · Vedanti Marne · 2026</footer>
+
+</body>
+</html>
